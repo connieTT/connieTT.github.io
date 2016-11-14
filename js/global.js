@@ -1,12 +1,12 @@
 ;(function($) {
 
-//这是万恶的全局变量
+
 var Global = {
     section_name : [],
     isScrolling : true,
     section_num : 1
 };
-//缓出现函数
+
 Global.fadeInByOrder = function(selector,interval,callback){
     var i = 1,
         length = $(selector+' .fade').length + 1,
@@ -24,7 +24,7 @@ Global.fadeInByOrder = function(selector,interval,callback){
         }
     })();
 };
-//函数节流
+
 Global.throttle = function(fn, delay) {
     var timer = null;
     return function () {
@@ -35,10 +35,10 @@ Global.throttle = function(fn, delay) {
         }, delay);
     };
 };
-//重新计算元素位置
+
 Global.reCal = function(){
 
-    //居中加载动画
+    
     (function centerLoading() {
         if ( !$('body').hasClass('finish-loading') ) {
             var topOffset = ( $(window).height() - 175 ) / 2  ,
@@ -53,13 +53,13 @@ Global.reCal = function(){
         }
     })();
 
-    //处理每个区块
+    
     $('.section-wrap').each(function(index, el) {
         Global.section_name[index] = $(this).attr('class').substr(($(this).attr('class').indexOf('section-wrap ')+13));
         $(this).find('.section').height($(window).height());
     });
 
-    //高度居中主体内容
+    
     $('.section-content').each(function(){
         $(this).css({
             marginTop: ( $(window).height() - 40 - $(this).height() ) / 2
@@ -67,7 +67,7 @@ Global.reCal = function(){
     });
 
 };
-//处理首页背景图片
+
 Global.fixedbg = function(){
     var slide_rate = 1000 / 667,
         window_rate;
@@ -80,7 +80,7 @@ Global.fixedbg = function(){
         }
     })();
 };
-//头部交互
+
 Global.shrinkHeader = function(doShrink){
     if (doShrink) {
         $('.section-header').addClass('shrink');
@@ -88,7 +88,7 @@ Global.shrinkHeader = function(doShrink){
         $('.section-header').removeClass('shrink');
     }
 };
-//高亮菜单
+
 Global.fire_nav = function(theNav){
     $('.nav .fade').removeClass('hover');
     switch(theNav){
@@ -106,7 +106,7 @@ Global.fire_nav = function(theNav){
             break;
     }
 };
-//鼠标滚动后处理函数
+
 Global.scrollHandle = function(scrollDown){
     if (!Global.isScrolling) {
         
@@ -130,7 +130,7 @@ Global.scrollHandle = function(scrollDown){
     
     }
 };
-//计算要滚动到的高度
+
 Global.targetScrollTop = function(n){
     if(n > Global.section_name.length){
         Global.section_num = Global.section_name.length;    
@@ -140,8 +140,7 @@ Global.targetScrollTop = function(n){
     }
     return ($(window).height() * (Global.section_num - 1));
 };
-//根据 CSS3 判断屏幕
-//原理：http://yujiangshui.com/use-javascript-css-media-queries-detect-device-state/
+
 Global.forRetina = function(){
 
     $('body').append('<div class="state-indicator"></div>');
@@ -161,7 +160,7 @@ Global.forRetina = function(){
 
     $('.state-indicator').remove();
 };
-//将 img 处理成 @2x 像素
+
 Global.changeDBImg = function(){
     function changeDBURL(imgURL,imgType){
         return imgURL.substring(0,imgURL.indexOf('.'+imgType)) + '@2x.' + imgType;
@@ -170,7 +169,7 @@ Global.changeDBImg = function(){
         return changeDBURL($(this).attr('src'),'jpg');
     });
 };
-//面向平板电脑的触摸手势
+
 Global.handleTouchEvent = function(event){
     if (event.touches.length == 1) {
 
@@ -265,7 +264,7 @@ $(window).load(function() {
 
     (function load_init(){
 
-        //资源加载完成之后，开始初始化
+        
 
         $("body").addClass('finish-loading');
 
@@ -313,14 +312,14 @@ window.onscroll = Global.throttle(function(){
 
     },50);
 
-//判断鼠标滚动方向
+
 $(document).on('mousewheel DOMMouseScroll', function(e){
     var e0 = e.originalEvent,
         delta = e0.wheelDelta || -e0.detail,
         isMouseScrollDown = delta < 0 ? true : false;
 
-    //处理好上下元素数组，开始滚动
-    if (isMouseScrollDown) { //鼠标向下滚动
+    
+    if (isMouseScrollDown) {
 
         Global.scrollHandle(true);
 
